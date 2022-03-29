@@ -1,8 +1,12 @@
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { useCountriesQuery } from 'generated/graphql';
+import { useUserQuery } from 'generated/graphql';
 
 export default function Countries() {
-  const { data, loading, error } = useCountriesQuery();
+  const { data, loading, error } = useUserQuery({
+    variables: {
+      userId: 'xxx',
+    },
+  });
 
   if (loading) {
     return (
@@ -37,29 +41,25 @@ export default function Countries() {
     return null;
   }
 
-  const countries = data?.countries.slice(0, 4);
+  const user = data?.user;
 
-  if (!countries) {
-    console.error(countries);
+  if (!user) {
+    console.error(error);
     return null;
   }
 
   return (
     <Grid container spacing={2}>
-      {countries
-        ? countries.map((country: Country) => (
-            <Grid item xs={2} key={country.code}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h5">{country.name}</Typography>
-                  <Typography>
-                    {country.code} - {country.emoji}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))
-        : null}
+      {user ? (
+        <Grid item xs={2}>
+          <Card>
+            <CardContent>
+              <Typography variant="h5">{user.email}</Typography>
+              <Typography>{user.name}</Typography>
+            </CardContent>
+          </Card>
+        </Grid>
+      ) : null}
     </Grid>
   );
 }

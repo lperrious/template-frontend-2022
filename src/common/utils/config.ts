@@ -17,4 +17,5 @@ export const config = {
     'NEXT_PUBLIC_API_URL',
     process.env.NEXT_PUBLIC_API_URL
   ),
+  graphQLPath: getEnvironmentVariable('GQL_URL_PATH', process.env.GQL_URL_PATH),
 };

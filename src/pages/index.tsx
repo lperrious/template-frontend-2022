@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import { Card, CardContent, Grid, Typography } from '@mui/material';
-import { ssrCountries, PageCountriesComp } from '../generated/page';
+import { ssrUser, PageUserComp } from '../generated/page';
 import { GetServerSideProps } from 'next';
 import { withApollo } from '@/utils/withApollo';
 
-const HomePage: PageCountriesComp = (props) => {
+const HomePage: PageUserComp = (props) => {
   return (
     <div>
       <Head>
@@ -18,18 +18,16 @@ const HomePage: PageCountriesComp = (props) => {
         </Typography>
 
         <Grid container spacing={2}>
-          {props?.data?.countries?.map((country: Country) => (
-            <Grid item xs={2} key={country.code}>
+          {props?.data?.user ? (
+            <Grid item xs={2}>
               <Card>
                 <CardContent>
-                  <Typography variant="h5">{country.name}</Typography>
-                  <Typography>
-                    {country.code} - {country.emoji}
-                  </Typography>
+                  <Typography variant="h5">{props.data.user.email}</Typography>
+                  <Typography>{props.data.user.name}</Typography>
                 </CardContent>
               </Card>
             </Grid>
-          ))}
+          ) : null}
         </Grid>
       </main>
     </div>
@@ -37,7 +35,13 @@ const HomePage: PageCountriesComp = (props) => {
 };
 
 export const getStaticProps: GetServerSideProps = async (ctx) => {
-  return await ssrCountries.getServerPage({}, ctx);
+  return await ssrUser.getServerPage({}, ctx);
 };
 
-export default withApollo(ssrCountries.withPage(() => ({}))(HomePage));
+export default withApollo(
+  ssrUser.withPage(() => ({
+    variables: {
+      userId: 'xxx',
+    },
+  }))(HomePage)
+);

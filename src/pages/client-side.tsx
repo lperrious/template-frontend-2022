@@ -1,10 +1,10 @@
 import Head from 'next/head';
-import Countries from '@/components/Countries/Countries';
+import User from '@/components/User/User';
 import { Typography } from '@mui/material';
-import { PageCountriesComp } from 'generated/page';
+import { PageUserComp } from 'generated/page';
 import { withApollo } from '@/utils/withApollo';
 
-const ClientSide: PageCountriesComp = () => {
+const ClientSide: PageUserComp = () => {
   return (
     <div>
       <Head>
@@ -17,7 +17,7 @@ const ClientSide: PageCountriesComp = () => {
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </Typography>
 
-        <Countries />
+        <User />
       </main>
     </div>
   );

@@ -126,9 +126,12 @@ Powerful testing utility particularly useful with React.
 
 ## Configuration
 
-- **The .env.development file** - `.env.development.local` - Describes the env variables used in development environment.
-- **The .env.production file** - `.env.production.local` - Describes the env variables used in production environment.
+- **The .env.development file** - `.env.development` - Describes the env variables used in development environment.
+- **The .env.production file** - `.env.production` - Describes the env variables used in production environment.
 - **The config file** - `src/common/utils/config.js` - Creates a config data structure which can be accessed thoughout the application.
+
+If you want to make local changes to the configuration, copy the `.env.development` file to a `.env.development.local` file, and modify it.
+In particular, it can be useful to set `GQL_SCHEMA_PATH` with the relative path of the backend gql definitions (ex: `GQL_SCHEMA_PATH=../backend/src/schema.gql`).
 
 ## Run
 

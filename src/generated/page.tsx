@@ -8,15 +8,15 @@ import { QueryHookOptions, useQuery } from '@apollo/client';
 import * as Apollo from '@apollo/client';
 import type React from 'react';
 import { getApolloClient, ApolloClientContext } from '@/utils/withApollo';
-export async function getServerPageCountries(
-  options: Omit<Apollo.QueryOptions<Types.CountriesQueryVariables>, 'query'>,
+export async function getServerPageUser(
+  options: Omit<Apollo.QueryOptions<Types.UserQueryVariables>, 'query'>,
   ctx: ApolloClientContext
 ) {
   const apolloClient = getApolloClient(ctx);
 
-  const data = await apolloClient.query<Types.CountriesQuery>({
+  const data = await apolloClient.query<Types.UserQuery>({
     ...options,
-    query: Operations.CountriesDocument,
+    query: Operations.UserDocument,
   });
 
   const apolloState = apolloClient.cache.extract();
@@ -29,34 +29,34 @@ export async function getServerPageCountries(
     },
   };
 }
-export const useCountries = (
+export const useUser = (
   optionsFunc?: (
     router: NextRouter
-  ) => QueryHookOptions<Types.CountriesQuery, Types.CountriesQueryVariables>
+  ) => QueryHookOptions<Types.UserQuery, Types.UserQueryVariables>
 ) => {
   const router = useRouter();
   const options = optionsFunc ? optionsFunc(router) : {};
-  return useQuery(Operations.CountriesDocument, options);
+  return useQuery(Operations.UserDocument, options);
 };
-export type PageCountriesComp = React.FC<{
-  data?: Types.CountriesQuery;
+export type PageUserComp = React.FC<{
+  data?: Types.UserQuery;
   error?: Apollo.ApolloError;
 }>;
-export const withPageCountries =
+export const withPageUser =
   (
     optionsFunc?: (
       router: NextRouter
-    ) => QueryHookOptions<Types.CountriesQuery, Types.CountriesQueryVariables>
+    ) => QueryHookOptions<Types.UserQuery, Types.UserQueryVariables>
   ) =>
-  (WrappedComponent: PageCountriesComp): NextPage =>
+  (WrappedComponent: PageUserComp): NextPage =>
   (props) => {
     const router = useRouter();
     const options = optionsFunc ? optionsFunc(router) : {};
-    const { data, error } = useQuery(Operations.CountriesDocument, options);
+    const { data, error } = useQuery(Operations.UserDocument, options);
     return <WrappedComponent {...props} data={data} error={error} />;
   };
-export const ssrCountries = {
-  getServerPage: getServerPageCountries,
-  withPage: withPageCountries,
-  usePage: useCountries,
+export const ssrUser = {
+  getServerPage: getServerPageUser,
+  withPage: withPageUser,
+  usePage: useUser,
 };

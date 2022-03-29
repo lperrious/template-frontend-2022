@@ -47,7 +47,7 @@ export const getApolloClient = (
   }
 
   const httpLink = createHttpLink({
-    uri: config.apiURL,
+    uri: `${config.apiURL}${config.graphQLPath}`,
     fetch,
   });
   const cache = new InMemoryCache().restore(initialState || {});

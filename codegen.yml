@@ -1,5 +1,5 @@
 overwrite: true
-schema: 'https://countries.trevorblades.com/'
+schema: ${GQL_SCHEMA_PATH}
 documents:
   - 'src/common/**/*.graphql'
   - 'src/modules/**/*.graphql'
